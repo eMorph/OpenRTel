@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=openrtel
+Exec=openrtel
+Icon=edu.case.OpenRTel
+Terminal=false
+Type=Application
+Categories=Utility;
+Keywords=GTK;
+StartupNotify=true
+DBusActivatable=true

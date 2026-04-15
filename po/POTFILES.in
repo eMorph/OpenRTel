@@ -1,0 +1,8 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+data/edu.case.OpenRTel.desktop.in
+data/edu.case.OpenRTel.metainfo.xml.in
+data/edu.case.OpenRTel.gschema.xml
+src/main.py
+src/window.py
+src/window.ui
