@@ -43,6 +43,19 @@ class mountArm:
         return steps*np.pi/100/mstep
     def _rad2step(self,mstep,theta):
         return 100/np.pi*mstep*theta
+    def handleButtonPressedSignal(self, mccw):
+        if !self.mlock:
+            self.motors[mccw[0]].motor_go(!mccw[1], self.mstep)
+            keepGoing = True
+            while keepGoing:
+                try:
+                    self.theta[mccw[0]] += int(mccw[1])*self._step2rad(1,1)
+                except StopMotorInterrupt:
+                    keepGoing = False
+        else:
+            print("Motor is busy!")
+    def handleButtonReleaseSignal(self,motor):
+        self.motors[motor].motor_stop()
     def gotoAA(self,alt=0,az=0):
         if not self.mLock:
             self.mLock = True

@@ -35,6 +35,10 @@ if rPi:
 class OpenrtelWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'OpenrtelWindow'
     wipInfo = Gtk.Template.Child()
+    buttonAltUp = Gtk.Template.Child()
+    buttonAltDn = Gtk.Template.Child()
+    buttonAzUp = Gtk.Template.Child()
+    buttonAzDn = Gtk.Template.Child()
     def update_readout(self,widget,frame_clock):
         self.wipInfo.set_label(str(self.pixel))
     @Gtk.Template.Callback()
@@ -49,8 +53,22 @@ class OpenrtelWindow(Adw.ApplicationWindow):
         else:
             self.pixel=1
 
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.pixel = 0
-        self.wipInfo.tickCallback = self.wipInfo.add_tick_callback(self.update_readout)
+        try:
+            self.wipInfo.tickCallback = self.wipInfo.add_tick_callback(self.update_readout)
+            self.buttonAltUp.gst = Gtk.GestureClick.new()
+            self.buttonAltUp.gst.connect("pressed",mount.handleButtonPressedSignal,[1,True])
+            self.buttonAltUp.gst.connect("released",mount.handleButtonReleaseSignal,1)
+            self.buttonAltDn.gst = Gtk.GestureClick.new()
+            self.buttonAltDn.gst.connect("pressed",mount.handleButtonPressedSignal,[1,False])
+            self.buttonAltDn.gst.connect("released",mount.handleButtonReleaseSignal,1)
+            self.buttonAzUp.gst = Gtk.GestureClick.new()
+            self.buttonAzUp.gst.connect("pressed",mount.handleButtonPressedSignal,[0,True])
+            self.buttonAzUp.gst.connect("released",mount.handleButtonReleaseSignal,0)
+            self.buttonAzDn.gst = Gtk.GestureClick.new()
+            self.buttonAzDn.gst.connect("pressed",mount.handleButtonPressedSignal,[0,False])
+            self.buttonAzDn.gst.connect("released",mount.handleButtonReleaseSignal,0)
+        except NameError:
+            print("Mount library is not present.")

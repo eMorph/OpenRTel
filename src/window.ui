@@ -10,12 +10,25 @@
       <object class="AdwToolbarView">
         <child type="top">
           <object class="AdwHeaderBar">
+            <child type="top">
+
+            </child>
             <child type="end">
-              <object class="GtkMenuButton">
-                <property name="primary">True</property>
-                <property name="icon-name">open-menu-symbolic</property>
-                <property name="tooltip-text" translatable="yes">Main Menu</property>
-                <property name="menu-model">primary_menu</property>
+              <object class="GtkBox">
+                <property name="orientation">horizontal</property>
+                <child>
+                  <object class="GtkStackSwitcher" id="mode_switcher">
+                    <property name="stack">controls_stack</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkMenuButton">
+                    <property name="primary">True</property>
+                    <property name="icon-name">open-menu-symbolic</property>
+                    <property name="tooltip-text" translatable="yes">Main Menu</property>
+                    <property name="menu-model">primary_menu</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -33,9 +46,69 @@
               </object>
             </child>
             <child type="overlay">
-              <object class="GtkButton" id="scan_button">
-                <property name="label" translatable="yes">Scan!</property>
-                <signal name="clicked" handler="read_raster" swapped="no"/>
+              <object class="GtkStack" id="controls_stack">
+                <child>
+                  <object class="GtkStackPage" id="controls_auto">
+                    <property name="name">auto_raster</property>
+                    <property name="title">Auto</property>
+                    <property name="child">
+                      <object class="GtkButton" id="scan_button">
+                        <property name="label" translatable="yes">Scan!</property>
+                        <signal name="clicked" handler="read_raster" swapped="no"/>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkStackPage" id="controls_manual">
+                    <property name="name">man_raster</property>
+                    <property name="title">Manual</property>
+                    <property name="child">
+                      <object class="GtkGrid" id="manual_controls_area">
+                        <child>
+                          <object class="GtkButton" id="buttonAltUp">
+                            <property name="label">Alt Up</property>
+                            <layout>
+                              <property name="column">0</property>
+                              <property name="row">0</property>
+                              <property name="column-span">2</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="buttonAltDn">
+                            <property name="label">Alt Down</property>
+                            <layout>
+                              <property name="column">0</property>
+                              <property name="row">1</property>
+                              <property name="column-span">2</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="buttonAzDn">
+                            <property name="label">Az Down</property>
+                            <layout>
+                              <property name="column">0</property>
+                              <property name="row">2</property>
+                              <property name="column-span">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkButton" id="buttonAzUp">
+                            <property name="label">Az Up</property>
+                            <layout>
+                              <property name="column">1</property>
+                              <property name="row">2</property>
+                              <property name="column-span">1</property>
+                            </layout>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
