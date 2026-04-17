@@ -1,5 +1,6 @@
 try:
     import RPi.GPIO as gpio
+    print("Found the GPIO library!")
 except ModuleNotFoundError:
     print("Could not import GPIO library! Exiting...")
     raise NoRPi
@@ -31,7 +32,7 @@ M1_DIR = 25
 M1_MSTEP = (21, 22, 23)
 
 
-class mountArm:
+class MountArm:
     def __init__(self):
         self.motors = [rml.A4988Nema(M0_DIR,M0_STEP,M0_MSTEP),rml.A4988Nema(M1_DIR,M1_STEP,M1_MSTEP)]
         self.theta = (0,0)
@@ -44,8 +45,8 @@ class mountArm:
     def _rad2step(self,mstep,theta):
         return 100/np.pi*mstep*theta
     def handleButtonPressedSignal(self, mccw):
-        if !self.mlock:
-            self.motors[mccw[0]].motor_go(!mccw[1], self.mstep)
+        if not self.mlock:
+            self.motors[mccw[0]].motor_go(not mccw[1], self.mstep)
             keepGoing = True
             while keepGoing:
                 try:

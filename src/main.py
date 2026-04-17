@@ -1,6 +1,6 @@
 # main.py
 #
-# Copyright 2026 vbox
+# Copyright 2026 Charles Kahn
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
