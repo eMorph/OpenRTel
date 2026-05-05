@@ -1,2 +1,2 @@
-pyrtlsdr
+pyrtlsdr[lib]
 rpimotorlib[rpilgpio]

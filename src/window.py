@@ -17,47 +17,76 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import cairo
 from gi.repository import Adw,Gtk
 rpi = True
+radio = True
 try:
     from .controls import MountArm
 except:
     rPi = False
 from threading import Thread
-#from rtlsdr import RtlSdr
-
+try:
+    from rtlsdr import RtlSdr
+except:
+    radio = False
 
 if rPi:
     mount = MountArm()
-#sdr = RtlSdr()
+if radio:
+    sdr = RtlSdr()
 
 @Gtk.Template(resource_path='/edu/case/OpenRTel/window.ui')
 class OpenrtelWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'OpenrtelWindow'
-    wipInfo = Gtk.Template.Child()
+    tel_readout = Gtk.Template.Child()
     buttonAltUp = Gtk.Template.Child()
     buttonAltDn = Gtk.Template.Child()
     buttonAzUp = Gtk.Template.Child()
     buttonAzDn = Gtk.Template.Child()
-    def update_readout(self,widget,frame_clock):
-        self.wipInfo.set_label(str(self.pixel))
+    def update_readout(self, da: Gtk.DrawingArea, ctx: cairo.Context, width, height):
+        ctx.set_source_surface(self.viewport,0,0)
+        ctx.paint()
     @Gtk.Template.Callback()
     def read_raster(self,widget):
+        print("Read raster called")
         if rPi:
             rasterThread = Thread(target=mount.constructRaster)
             rasterThread.start()
             while mount.mLock:
                 if mount.canReceive:
-                    self.pixel = sdr.read_samples(1)
+                    if sdr:
+                        self.pixel = sdr.read_samples(1)
+                    else:
+                        self.pixel = 1
+                    coord = polar2rec(theta,500)
+                    x = coord[0]
+                    y = coord[1]
+                    self.vpc.set_source_rgb(0,0,self.pixel)
+                    self.vpc.rectangle(x-1,y-1,3,3)
+                    self.vpc.fill()
             rasterThread.join()
+
         else:
             self.pixel=1
+            theta = (0,0)
+            self.vpc.set_source_rgb(255,0,0)
+            self.vpc.rectangle(100,100,300,300)
+            self.vpc.fill()
+        self.vpc.paint()
+        self.tel_readout.queue_draw()
+
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.pixel = 0
+        self.viewport = cairo.ImageSurface(cairo.Format.RGB24,500,500)
+        self.vpc = cairo.Context(self.viewport)
+        self.vpc.set_source_rgb(0,0,0)
+        self.vpc.rectangle(0,0,100,100)
+        self.vpc.fill()
+        self.tel_readout.set_draw_func(self.update_readout)
         try:
-            self.wipInfo.tickCallback = self.wipInfo.add_tick_callback(self.update_readout)
             self.buttonAltUp.gst = Gtk.GestureClick.new()
             self.buttonAltUp.gst.connect("pressed",mount.handleButtonPressedSignal,[1,True])
             self.buttonAltUp.gst.connect("released",mount.handleButtonReleaseSignal,1)

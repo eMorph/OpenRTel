@@ -11,8 +11,6 @@ gnome.compile_resources('openrtel',
 
 python = import('python')
 
-sdr_dep = dependency('rtlsdr')
-
 
 
 conf = configuration_data()

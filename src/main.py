@@ -53,10 +53,10 @@ class OpenrtelApplication(Adw.Application):
         """Callback for the app.about action."""
         about = Adw.AboutDialog(application_name='openrtel',
                                 application_icon='edu.case.OpenRTel',
-                                developer_name='vbox',
+                                developer_name='Charles Kahn',
                                 version='0.1.0',
-                                developers=['vbox'],
-                                copyright='© 2026 vbox')
+                                developers=['Charles Kahn'],
+                                copyright='© 2026 Charles Kahn')
         # Translators: Replace "translator-credits" with your name/username, and optionally an email or URL.
         about.set_translator_credits(_('translator-credits'))
         about.present(self.props.active_window)

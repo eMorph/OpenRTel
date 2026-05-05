@@ -16,6 +16,7 @@
             <child type="end">
               <object class="GtkBox">
                 <property name="orientation">horizontal</property>
+                <property name="spacing">10</property>
                 <child>
                   <object class="GtkStackSwitcher" id="mode_switcher">
                     <property name="stack">controls_stack</property>
@@ -39,22 +40,30 @@
               <object class="GtkBox" id="telView">
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkLabel" id="wipInfo">
-                    <property name="label" translatable="yes">Current reading goes here</property>
+                  <object class="GtkDrawingArea" id="tel_readout">
+                    <property name="halign">GTK_ALIGN_CENTER</property>
+                    <property name="content-width">500</property>
+                    <property name="content-height">500</property>
                   </object>
                 </child>
               </object>
             </child>
             <child type="overlay">
               <object class="GtkStack" id="controls_stack">
+                <property name="valign">GTK_ALIGN_END</property>
+                <property name="opacity">1.0</property>
                 <child>
                   <object class="GtkStackPage" id="controls_auto">
                     <property name="name">auto_raster</property>
                     <property name="title">Auto</property>
                     <property name="child">
-                      <object class="GtkButton" id="scan_button">
-                        <property name="label" translatable="yes">Scan!</property>
-                        <signal name="clicked" handler="read_raster" swapped="no"/>
+                      <object class="GtkBox" id="make_scan_button_smaller">
+                        <child>
+                          <object class="GtkButton" id="scan_button">
+                            <property name="label" translatable="yes">Scan!</property>
+                            <signal name="clicked" handler="read_raster" swapped="no"/>
+                          </object>
+                        </child>
                       </object>
                     </property>
                   </object>
