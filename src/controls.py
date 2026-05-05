@@ -24,12 +24,12 @@ STEP_LOW = 0.000001
 #PIN NUMBERS
 #Change these to suit setup
 M0_STEP = 26
-M0_DIR = 27
+M0_DIR = 19
 M0_MSTEP = (6, 10, 11)
 
-M1_STEP = 24
-M1_DIR = 25
-M1_MSTEP = (21, 22, 23)
+M1_STEP = 20
+M1_DIR = 21
+M1_MSTEP = (27, 22, 23)
 
 
 class MountArm:

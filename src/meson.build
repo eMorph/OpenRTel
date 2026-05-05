@@ -11,6 +11,10 @@ gnome.compile_resources('openrtel',
 
 python = import('python')
 
+sdr_dep = dependency('rtlsdr')
+
+
+
 conf = configuration_data()
 conf.set('PYTHON', python.find_installation('python3').full_path())
 conf.set('VERSION', meson.project_version())

@@ -1,0 +1,45 @@
+{
+    "name": "python3-requirements",
+    "buildsystem": "simple",
+    "build-commands": [],
+    "modules": [
+        {
+            "name": "python3-pyrtlsdr",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"pyrtlsdr\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/9e/e2/ee05a0e985e1175be2ed451dcdd525fc4901bbe891399056d56fd9ab47c4/pyrtlsdr-0.4.0-py3-none-any.whl",
+                    "sha256": "964dc69e261f608f617db0e48c5d92e8d8c975f1c1c3c1d8add8d8012b72bd14"
+                }
+            ]
+        },
+        {
+            "name": "python3-rpimotorlib",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"rpimotorlib[rpilgpio]\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/56/33/26ec2e8049eaa2f077bf23a12dc61ca559fbfa7bea0516bf263d657ae275/lgpio-0.2.2.0.tar.gz",
+                    "sha256": "11372e653b200f76a0b3ef8a23a0735c85ec678a9f8550b9893151ed0f863fff"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/da/a9/06b843528e47ded0dd276537e9c56e7aec7c841b3b2749274e7d8121dab5/rpi_lgpio-0.6-py3-none-any.whl",
+                    "sha256": "0930b6e0ffbfbeee9366fbfa5038d29a7606be96a5229d570b1f81be8f776777"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/27/91/7bf51f7ac45bc1446127f14bc7a90a7a64ddafc1772c7ad1168a7de4cc35/rpimotorlib-4.0.0-py3-none-any.whl",
+                    "sha256": "9ef51dd38793818509503bbbca5c0512c95b51a7ef76a1d48a0915a27550ee37"
+                }
+            ]
+        }
+    ]
+}
